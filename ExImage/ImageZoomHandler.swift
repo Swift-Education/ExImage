@@ -1,5 +1,5 @@
 //
-//  TouchManager.swift
+//  ImageZoomHandler.swift
 //  ExImage
 //
 //  Created by 강동영 on 4/23/25.
@@ -8,7 +8,7 @@
 import UIKit
 
 @MainActor
-class TouchManager {
+class ImageZoomHandler {
     
     nonisolated init() {}
     
