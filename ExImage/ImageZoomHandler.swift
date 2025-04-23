@@ -12,30 +12,41 @@ class ImageZoomHandler {
     
     nonisolated init() {}
     
+    func regist(with view: UIView) {
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinched(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapped(_:)))
+        tapGesture.numberOfTapsRequired = 2
+        view.addGestureRecognizer(tapGesture)
+        view.addGestureRecognizer(pinchGesture)
+        
+        
+        view.isUserInteractionEnabled = true
+    }
+    
     @objc func pinched(_ recognizer: UIPinchGestureRecognizer) {
-        guard let imageView = recognizer.view as? UIImageView else { return }
+        guard let view = recognizer.view else { return }
         
         switch recognizer.state {
         case .ended, .cancelled, .failed:
-            guard imageView.transform.a < 1.0 else { return }
+            guard view.transform.a < 1.0 else { return }
             UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut]) {
-                imageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             }
             
         default:
             Task {
-                imageView.transform = CGAffineTransform(scaleX: recognizer.scale, y: recognizer.scale)
+                view.transform = CGAffineTransform(scaleX: recognizer.scale, y: recognizer.scale)
             }
         }
     }
     
     @objc func doubleTapped(_ recognizer: UITapGestureRecognizer) {
-        guard let imageView = recognizer.view as? UIImageView else { return }
+        guard let view = recognizer.view else { return }
         print(#function)
        
-        let scale: CGFloat = imageView.transform.a == 1.0 ? 2.0 : 1.0
+        let scale: CGFloat = view.transform.a == 1.0 ? 2.0 : 1.0
         UIView.animate(withDuration: 0.3) {
-            imageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+            view.transform = CGAffineTransform(scaleX: scale, y: scale)
         }
     }
 }

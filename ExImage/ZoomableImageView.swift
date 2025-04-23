@@ -15,28 +15,21 @@ class ZoomableImageView: UIImageView {
         self.zoomHandler = zoomHandler
         super.init(frame: frame)
         
-        defaultConfig()
+        registToZoomHandler()
     }
     
     init(zoomHandler: ImageZoomHandler = .init(), image: UIImage?) {
         self.zoomHandler = zoomHandler
         super.init(image: image)
         
-        defaultConfig()
+        registToZoomHandler()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func defaultConfig() {
-        let pinchGesture = UIPinchGestureRecognizer(target: zoomHandler, action: #selector(zoomHandler.pinched(_:)))
-        let tapGesture = UITapGestureRecognizer(target: zoomHandler, action: #selector(zoomHandler.doubleTapped(_:)))
-        tapGesture.numberOfTapsRequired = 2
-        addGestureRecognizer(tapGesture)
-        addGestureRecognizer(pinchGesture)
-        
-        
-        isUserInteractionEnabled = true
+    private func registToZoomHandler() {
+        zoomHandler.regist(with: self)
     }
 }
