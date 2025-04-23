@@ -1,5 +1,5 @@
 //
-//  TouchAbleImageView.swift
+//  ZoomableImageView.swift
 //  ExImage
 //
 //  Created by 강동영 on 4/23/25.
@@ -8,7 +8,7 @@
 import UIKit
 
 @MainActor
-class TouchAbleImageView: UIImageView {
+class ZoomableImageView: UIImageView {
     private let touchManager: TouchManager
     
     init(touchManager: TouchManager = .init(), frame: CGRect) {
