@@ -8,9 +8,9 @@
 import UIKit
 
 final class ViewController: UIViewController {
-    private let imageView: TouchAbleImageView = {
+    private let imageView: ZoomableImageView = {
         let neuvilletteImage = UIImage.neuvillette
-        let imageView: TouchAbleImageView = .init(image: neuvilletteImage)
+        let imageView: ZoomableImageView = .init(image: neuvilletteImage)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true

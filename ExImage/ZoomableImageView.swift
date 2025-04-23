@@ -9,17 +9,17 @@ import UIKit
 
 @MainActor
 class ZoomableImageView: UIImageView {
-    private let touchManager: TouchManager
+    private let zoomHandler: ImageZoomHandler
     
-    init(touchManager: TouchManager = .init(), frame: CGRect) {
-        self.touchManager = touchManager
+    init(zoomHandler: ImageZoomHandler = .init(), frame: CGRect) {
+        self.zoomHandler = zoomHandler
         super.init(frame: frame)
         
         defaultConfig()
     }
     
-    init(touchManager: TouchManager = .init(), image: UIImage?) {
-        self.touchManager = touchManager
+    init(zoomHandler: ImageZoomHandler = .init(), image: UIImage?) {
+        self.zoomHandler = zoomHandler
         super.init(image: image)
         
         defaultConfig()
@@ -30,8 +30,8 @@ class ZoomableImageView: UIImageView {
     }
     
     private func defaultConfig() {
-        let pinchGesture = UIPinchGestureRecognizer(target: touchManager, action: #selector(touchManager.pinched(_:)))
-        let tapGesture = UITapGestureRecognizer(target: touchManager, action: #selector(touchManager.doubleTapped(_:)))
+        let pinchGesture = UIPinchGestureRecognizer(target: zoomHandler, action: #selector(zoomHandler.pinched(_:)))
+        let tapGesture = UITapGestureRecognizer(target: zoomHandler, action: #selector(zoomHandler.doubleTapped(_:)))
         tapGesture.numberOfTapsRequired = 2
         addGestureRecognizer(tapGesture)
         addGestureRecognizer(pinchGesture)
